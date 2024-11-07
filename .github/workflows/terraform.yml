@@ -8,6 +8,10 @@ on:
 jobs:
   terraform:
     runs-on: self-hosted
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
 
     steps:
       # Step 1: Check out the repository
@@ -16,25 +20,13 @@ jobs:
 
       # Step 4: Initialize Terraform
       - name: Terraform Init
-        run: |
-          export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
-          export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          export AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}
-          terraform init
+        run: terraform init
 
       # Step 5: Terraform Plan
       - name: Terraform Plan
-        run: |
-          export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
-          export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          export AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}
-          terraform plan
+        run: terraform plan
 
       # Step 6: Terraform Apply (only runs on main branch)
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
-        run: |
-          export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
-          export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          export AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}
-          terraform apply -auto-approve
+      # - name: Terraform Apply
+      #   if: github.ref == 'refs/heads/main'
+      #   run: terraform apply -auto-approve
