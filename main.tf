@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "example" {
-  bucket = "my-tf-test-bucket"       #Simple bucket creation for demo purpose
+  bucket = "mithun-tf-aditya-bucket"       #Simple bucket creation for demo purpose
 
   tags = {
     Name        = "My bucket"
