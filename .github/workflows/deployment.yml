@@ -13,6 +13,9 @@ on:
 jobs:
   call-terraform:
     uses: muna1991/Terrform-Library/.github/workflows/terraform.yml@main  # Reference to the shared workflow
+    with:
+      bucket_name: "mithu-aditya-s3-buckets"
+      region: "ap-south-1"
     secrets:
       aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
       aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
