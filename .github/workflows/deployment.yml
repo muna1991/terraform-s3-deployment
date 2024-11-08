@@ -1,0 +1,20 @@
+# File: .github/workflows/deploy_terraform.yml
+
+name: "Deploy Terraform with Shared Workflow"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  call-terraform:
+    uses: your-org-or-username/terraform-shared-workflows/.github/workflows/terraform_s3_bucket.yml@main  # Reference to the shared workflow
+    with:
+      aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
