@@ -1,19 +1,47 @@
-# File: .github/workflows/deploy_terraform.yml
+# File: .github/workflows/terraform_s3_bucket.yml
 
-name: "Deploy Terraform with Shared Workflow"
+name: "Terraform S3 Bucket Deployment with Approval"
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
-      - main    
+      - main  # Trigger plan when a PR targets the main branch
+  workflow_dispatch:  # Allows manual execution of apply after approval
 
 jobs:
-  call-terraform:
-    uses: muna1991/Terrform-Library/.github/workflows/terraform.yml@main  # Reference to the shared workflow
-    secrets:
-      aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+  terraform-plan:
+    name: Terraform Plan
+    runs-on: self-hosted
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
+      AWS_SESSION_TOKEN: ${{ secrets.aws_session_token }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Terraform Initialization
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan -out=plan.out  # Save the plan to a file for later use
+        id: plan
+
+  terraform-apply:
+    name: Terraform Apply
+    needs: terraform-plan  # Ensures this job only runs if terraform-plan succeeded
+    runs-on: self-hosted
+    if: github.event_name == 'workflow_dispatch'  # Ensures this job runs only on manual trigger
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
+      AWS_SESSION_TOKEN: ${{ secrets.aws_session_token }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Terraform Initialization
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve plan.out  # Use the saved plan file
