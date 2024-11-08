@@ -9,7 +9,7 @@ on:
 
 jobs:
   call-terraform:
-    uses: your-org-or-username/terraform-shared-workflows/.github/workflows/terraform_s3_bucket.yml@main  # Reference to the shared workflow
+    uses: muna1991/Terraform-Library/.github/workflows/terraform.yml@main  # Reference to the shared workflow
     with:
       aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
       aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
