@@ -1,20 +1,22 @@
 # terraform-s3-bucket deployment by using workflow call
 ## 1. Workflow Overview
 yaml
-name: "Deploy Terraform with Shared Workflow"
-The name field defines the workflow name displayed in the GitHub Actions tab for better organization and readability.
+    
+     name: "Deploy Terraform with Shared Workflow"
 
-Documentation: Naming workflows
-2. Workflow Triggers
+### The name field defines the workflow name displayed in the GitHub Actions tab for better organization and readability.
+
+  Documentation: Naming workflows
+### 2. Workflow Triggers
 yaml
-Copy code
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main  
+
+    on:
+      push:
+        branches:
+          - main
+      pull_request:
+        branches:
+          - main  
 The on field specifies the events that trigger the workflow. Here:
 
 Push to the main branch: Runs the workflow automatically whenever code is pushed to the main branch.
