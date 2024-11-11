@@ -17,39 +17,39 @@ yaml
       pull_request:
         branches:
           - main  
-The on field specifies the events that trigger the workflow. Here:
+The `on` field specifies the events that trigger the workflow. Here:
 
-Push to the main branch: Runs the workflow automatically whenever code is pushed to the main branch.
+Push to the `main` branch: Runs the workflow automatically whenever code is pushed to the `main` branch.
 
-Pull Requests to the main branch: Runs the workflow automatically on pull requests targeting the main branch.
+Pull Requests to the `main` branch: Runs the workflow automatically on pull requests targeting the `main` branch.
 
-Documentation: Events that trigger workflows
+Documentation: [Events that trigger workflows](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
 
-3. Calling a Shared Workflow
-yaml
-Copy code
-jobs:
-  call-terraform:
-    uses: muna1991/Terrform-Library/.github/workflows/terraform.yml@main
-Job ID: call-terraform defines a unique identifier for the job, which will run the shared workflow.
+## 3. Calling a Shared Workflow
+**yaml**
 
-Calling the Shared Workflow: The uses keyword references the shared workflow located in muna1991/Terrform-Library repository, specifically the terraform.yml file in .github/workflows on the main branch.
+       jobs:
+         call-terraform:
+           uses: muna1991/Terrform-Library/.github/workflows/terraform.yml@main
+Job ID: `call-terraform` defines a unique identifier for the job, which will run the shared workflow.
 
-Branch Specification: The @main suffix specifies the branch or tag to pull the workflow from, ensuring consistency across calls.
+Calling the Shared Workflow: The `uses` keyword references the shared workflow located in `muna1991/Terrform-Library` repository, specifically the `terraform.yml` file in `.github/workflows` on the `main` branch.
 
-Documentation: Calling a reusable workflow
+Branch Specification: The `@main` suffix specifies the branch or tag to pull the workflow from, ensuring consistency across calls.
 
-4. Passing Inputs to the Shared Workflow
-yaml
-Copy code
+Documentation: [Calling a reusable workflow](https://docs.github.com/en/actions/using-workflows/reusing-workflows#calling-a-reusable-workflow)
+
+## 4. Passing Inputs to the Shared Workflow
+**yaml**
+
     with:
       bucket_name: "mithu-aditya-s3-buckets"
       region: "ap-south-1"
-The with keyword specifies inputs for the shared workflow. Here:
+The `with` keyword specifies inputs for the shared workflow. Here:
 
-bucket_name: The name of the S3 bucket.
-region: AWS region for the deployment, with a default of "ap-south-1".
-Inputs should match those defined in the shared workflow, so the called workflow can use them as variables.
+`bucket_name:` The name of the S3 bucket.
+`region:` AWS region for the deployment, with a default of `"ap-south-1"`.
+`Inputs` should match those defined in the shared workflow, so the called workflow can use them as variables.
 
 Documentation: Passing inputs to a reusable workflow
 5. Passing Secrets to the Shared Workflow
