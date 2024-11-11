@@ -51,19 +51,20 @@ The `with` keyword specifies inputs for the shared workflow. Here:
 `region:` AWS region for the deployment, with a default of `"ap-south-1"`.
 `Inputs` should match those defined in the shared workflow, so the called workflow can use them as variables.
 
-Documentation: Passing inputs to a reusable workflow
-5. Passing Secrets to the Shared Workflow
-yaml
-Copy code
-    secrets:
-      aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
-The secrets keyword passes sensitive information securely:
+Documentation: [Passing inputs to a reusable workflow](https://docs.github.com/en/actions/using-workflows/reusing-workflows#passing-inputs-to-a-reusable-workflow)
 
-AWS Credentials: Secrets like aws_access_key_id, aws_secret_access_key, and aws_session_token are passed from repository secrets to the shared workflow, allowing Terraform to authenticate with AWS.
+## 5. Passing Secrets to the Shared Workflow
+**yaml**
+
+       secrets:
+           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+           aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+### The secrets keyword passes sensitive information securely:
+
+  AWS Credentials: `Secrets` like `aws_access_key_id`, `aws_secret_access_key`, and `aws_session_token` are passed from repository secrets to the shared workflow, allowing Terraform to authenticate with AWS.
 Ensure that the secrets match the names specified in your repository’s settings.
 
-Documentation: Passing secrets to a reusable workflow
-Summary
-This structure allows you to maintain a centralized Terraform workflow in a shared repository, ensuring reusability, standardization, and secure handling of sensitive AWS credentials across multiple workflows and repositories. This setup enables efficient, secure infrastructure automation with GitHub Actions and Terraform.
+Documentation: [Passing secrets to a reusable workflow](https://docs.github.com/en/actions/using-workflows/reusing-workflows#passing-secrets-to-a-reusable-workflow).
+## Summary
+#### This structure allows you to maintain a centralized Terraform workflow in a shared repository, ensuring reusability, standardization, and secure handling of sensitive AWS credentials across multiple workflows and repositories. This setup enables efficient, secure infrastructure automation with GitHub Actions and Terraform.
