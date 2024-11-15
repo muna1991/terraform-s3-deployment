@@ -12,8 +12,12 @@ on:
 
 jobs:
   call-terraform:
+    strategy:
+      matrix:
+        target: [dev, stage, prod] 
     uses: muna1991/Terrform-Library/.github/workflows/terraform.yml@main  # Reference to the shared workflow
     with:
+      target: ${{ matrix.target }} 
       bucket_name: "mithu-aditya-s3-buckets"
       region: "ap-south-1"
     secrets:
